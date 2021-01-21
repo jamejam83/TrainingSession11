@@ -1,0 +1,86 @@
+﻿@model IEnumerable<TrainingSession11Project.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+    <div style="direction:rtl;text-align:right;">
+        <h1>لیست مشتریان ثبت شده</h1>
+        <br/>
+        <p>
+            <a asp-action="Create">ثبت مشتری جدید</a>
+        </p>
+
+    </div>
+    <br />
+<table class="table" style="direction:rtl;">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("نام")
+            </th>
+            <th>
+                @Html.Label("نام خانوادگی")
+            </th>
+            <th>
+                @Html.Label("نام کاربری")
+            </th>           
+            <th>
+                @Html.Label("کدملی")
+            </th>            
+            <th>
+                @Html.Label("پنل کاربری")
+            </th>
+            <th>
+                @Html.Label("وضعیت")
+            </th>
+            <th>
+                @Html.Label("نام شرکت")
+            </th>            
+            <th>
+                @Html.Label("نحوه آشنایی")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeMelli)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPanelType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName )
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.IntroMethod)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomerId">ویرایش مشتری</a> |
+                <a asp-action="Details" asp-route-id="@item.CustomerId">جزئیات بیشتر</a> |
+                <a asp-action="Delete" asp-route-id="@item.CustomerId">حذف مشتری</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<br/>
+<div style="text-align:center;">
+    <p>
+        <a asp-action="Create">ثبت مشتری جدید</a>
+    </p>
+</div>

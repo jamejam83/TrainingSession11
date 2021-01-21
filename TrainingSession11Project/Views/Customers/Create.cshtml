@@ -1,0 +1,140 @@
+﻿@model TrainingSession11Project.Models.Customer
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+<script type="text/javascript">
+    function ApprovChanging(chb) {
+        if (chb.checked) {
+            document.getElementById("btnsubmit").className = "btn btn-primary btn-large";
+            document.getElementById("btnsubmit").disabled = false;
+        }
+        else {
+            document.getElementById("btnsubmit").className = "btn btn-primary btn-large disabled";
+            document.getElementById("btnsubmit").disabled = true;
+        }        
+    }
+    function StatusChanging(rb) {
+        if (rb.value == "حقوقی")
+            document.getElementById("companyrow").style.display = '';
+        else {
+            document.getElementById("companyrow").style.display = 'none';
+            document.getElementById("CompanyName").value = "";
+            document.getElementById("CompanyRegisterCode").value = "";
+            document.getElementById("CompanyEconomicCode").value = "";
+            
+        }
+        }
+</script>
+
+<div style="direction:rtl;text-align: right !important">
+    <h1>ثبت مشتری جدید</h1>
+
+    <h4>اطلاعات مشتری</h4>
+    <hr />
+</div>
+<div style="direction:rtl;">
+    @using (Html.BeginForm("Create", "Customers", method: FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-6">
+                @Html.TextBoxFor(c => c.FName, new { @class = "form-control", placeholder = "نام" })
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(c => c.LName, new { @class = "form-control", placeholder = "نام خانوادگی" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-6">
+                @Html.TextBoxFor(c => c.UserName, new { @class = "form-control", placeholder = "نام کاربری" })
+            </div>
+        </div>
+
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", placeholder = "ایمیل" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.Mobile, new { @class = "form-control", placeholder = " موبایل مثال : 09123211212" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.Tel, new { @class = "form-control", placeholder = "تلفن ثابت" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.CodeMelli, new { @class = "form-control", placeholder = "کدملی" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.SHNumber, new { @class = "form-control", placeholder = "شماره شناسنامه" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.PostalCode, new { @class = "form-control", placeholder = "کدپستی" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-6">
+                @Html.TextAreaFor(c => c.Address, new { @class = "form-control", placeholder = "آدرس" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-6">
+                <div style="text-align:right;">@Html.Label("", "پنل کاربری", new { @class = "control-label", @style = "font-weight:bold;" })</div>
+                <div>@Html.DropDownListFor(c => c.UserPanelType, new List<SelectListItem> { new SelectListItem { Text = "کاربر برنزی" }, new SelectListItem { Text = "کاربر نقره ای" }, new SelectListItem { Text = "کاربر طلایی" } }, new { @class = "form-control" })</div>
+            </div>
+            <div class="col-md-6">
+                <div style="text-align:right;">@Html.Label("", "وضعیت", new { @class = "control-label", @style = "font-weight:bold;" })</div>
+                <div style="text-align:right;padding-top: 8px;">
+                    @Html.RadioButtonFor(c => c.Status, "حقیقی", new { id = "ha", onchange = "StatusChanging(this);" })@Html.Label("", "حقیقی", new { @class = "control-label", @style = "padding-right:5px;" })
+                    @Html.RadioButtonFor(c => c.Status, "حقوقی",  new { id = "ho", onchange = "StatusChanging(this);" })@Html.Label("", "حقوقی", new { @class = "control-label", @style = "padding-right:5px;" })
+                </div>
+
+            </div>
+        </div>
+        <div id="companyrow" class="row" style="padding-bottom: 10px;display:none;">
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.CompanyName, new { @class = "form-control", placeholder = "نام شرکت" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.CompanyRegisterCode, new { @class = "form-control", placeholder = "کد ثبت" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.CompanyEconomicCode, new { @class = "form-control", placeholder = "کداقتصادی" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-6">
+                <div style="text-align:right;">@Html.Label("", "نحوه آشنایی", new { @class = "control-label", @style = "font-weight:bold;" })</div>
+                <div>@Html.DropDownListFor(c => c.IntroMethod, new List<SelectListItem> { new SelectListItem { Text = "دریافت پیامک تبلیغاتی" }, new SelectListItem { Text = "دریافت ایمیل تبلیغاتی" }, new SelectListItem { Text = "رسانه ها" } }, new { @class = "form-control" })</div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-md-6" style="text-align:right;">
+                @Html.CheckBox("Approve",new { onchange = "ApprovChanging(this);"})@Html.Label("", "تمام ", new { @style = "padding-right:5px;" })@Html.ActionLink("شرایط", "#") @Html.Label(".را کامل خواندم و می پذیرم")
+            </div>
+        </div>
+        <div class="row" style="">
+            <div class="col-md-6">
+            
+
+                <input id="btnsubmit" type="submit" value="ثبت مشتری جدید" class="btn btn-primary btn-large disabled" disabled />
+                
+            </div>
+        </div>
+    }
+</div>
+
+<div>
+    <a asp-action="Index">برگشت به لیست مشتری ها</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
